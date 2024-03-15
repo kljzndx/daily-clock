@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 
+using DailyClock.Models;
 using DailyClock.ViewModels;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 using Serilog;
 
@@ -32,10 +34,40 @@ namespace DailyClock
                 .CreateLogger();
                 lb.AddSerilog(log);
             })
+            .AddSingleton(s => GetConfig())
             .AddSingleton<MainViewModel>()
             .BuildServiceProvider();
 
             Ioc.Default.ConfigureServices(series);
         }
+
+        private AppSettings GetConfig()
+        {
+            string filePath = "./appsettings.json";
+
+            AppSettings? __result = null;
+            try
+            {
+                string json = File.ReadAllText(filePath);
+                __result = JsonSerializer.Deserialize<AppSettings>(json);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            AppSettings result = __result ?? new();
+
+            result.PropertyChanged += (s, e) =>
+            {
+                if (s is not AppSettings the)
+                    return;
+
+                File.WriteAllText(filePath, the.ToString());
+            };
+
+            return result;
+        }
     }
+
 }
