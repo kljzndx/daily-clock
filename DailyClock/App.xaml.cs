@@ -34,16 +34,19 @@ namespace DailyClock
                 .CreateLogger();
                 lb.AddSerilog(log);
             })
-            .AddSingleton(s => GetConfig())
+            .AddSingleton(GetConfig)
             .AddSingleton<MainViewModel>()
             .BuildServiceProvider();
 
             Ioc.Default.ConfigureServices(series);
         }
 
-        private AppSettings GetConfig()
+        private AppSettings GetConfig(IServiceProvider services)
         {
             string filePath = "./appsettings.json";
+            var logger = services.GetRequiredService<ILogger<AppSettings>>();
+
+            logger.LogInformation("读取配置文件");
 
             AppSettings? __result = null;
             try
@@ -51,19 +54,33 @@ namespace DailyClock
                 string json = File.ReadAllText(filePath);
                 __result = JsonSerializer.Deserialize<AppSettings>(json);
             }
+            catch (FileNotFoundException) 
+            {
+                logger.LogError("未找到配置文件，将使用默认配置");
+            }
             catch (Exception ex)
             {
-
+                logger.LogError(ex, "读取配置文件失败，将使用默认配置");
             }
 
             AppSettings result = __result ?? new();
 
-            result.PropertyChanged += (s, e) =>
+            result.PropertyChanged += async (s, e) =>
             {
                 if (s is not AppSettings the)
                     return;
 
-                File.WriteAllText(filePath, the.ToString());
+                var l = Ioc.Default.GetRequiredService<ILogger<AppSettings>>();
+                l.LogInformation("保存配置文件");
+
+                try
+                {
+                    await File.WriteAllTextAsync(filePath, the.ToString());
+                }
+                catch (Exception ex)
+                {
+                    l.LogError(ex, "保存配置文件失败");
+                }
             };
 
             return result;
