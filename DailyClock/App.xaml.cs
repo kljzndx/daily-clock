@@ -1,7 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 
 using DailyClock.Models;
+using DailyClock.Services.Tables;
 using DailyClock.ViewModels;
+
+using FreeSql;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -35,6 +38,15 @@ namespace DailyClock
                 lb.AddSerilog(log);
             })
             .AddSingleton(GetConfig)
+            .AddSingleton(s =>
+            {
+                var fsql = new FreeSqlBuilder()
+                .UseConnectionString(DataType.Sqlite, @"Data Source=main.db;")
+                .UseAutoSyncStructure(true)
+                .Build();
+
+                return fsql;
+            })
             .AddSingleton<MainViewModel>()
             .BuildServiceProvider();
 
