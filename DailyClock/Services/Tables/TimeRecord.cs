@@ -26,9 +26,13 @@ namespace DailyClock.Services.Tables
 
         [Column(IsPrimary = true, IsIdentity = true)]
         public long Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Message { get; set; } = string.Empty;
+        public string Title { get; set; } = "";
+        [Column(StringLength = -1)]
+        public string Message { get; set; } = "";
         public DateTime BeginTime { get; set; }
         public DateTime EndTime { get; set; }
+
+        [Column(ServerTime = DateTimeKind.Utc)]
+        public DateTime UpdateTime { get; set; }
     }
 }
