@@ -1,4 +1,4 @@
-﻿using FreeSql.DataAnnotations;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 using System;
 using System.Collections.Generic;
@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace DailyClock.Services.Tables
 {
-    [Table]
-    public record TimeRecord
+    public partial class TimeRecord : ObservableObject
     {
         public TimeRecord()
         {
@@ -18,21 +17,24 @@ namespace DailyClock.Services.Tables
 
         public TimeRecord(string title, string message, DateTime beginTime, DateTime endTime)
         {
-            Title = title;
-            Message = message;
-            BeginTime = beginTime;
-            EndTime = endTime;
+            _title = title;
+            _message = message;
+            _beginTime = beginTime;
+            _endTime = endTime;
         }
 
-        [Column(IsPrimary = true, IsIdentity = true)]
-        public long Id { get; set; }
-        public string Title { get; set; } = "";
-        [Column(StringLength = -1)]
-        public string Message { get; set; } = "";
-        public DateTime BeginTime { get; set; }
-        public DateTime EndTime { get; set; }
+        [ObservableProperty]
+        private long _id;
+        [ObservableProperty]
+        private string _title = "";
+        [ObservableProperty]
+        private string _message = "";
+        [ObservableProperty]
+        private DateTime _beginTime;
+        [ObservableProperty]
+        private DateTime _endTime;
 
-        [Column(ServerTime = DateTimeKind.Utc)]
-        public DateTime UpdateTime { get; set; }
+        [ObservableProperty]
+        private DateTime _updateTime;
     }
 }

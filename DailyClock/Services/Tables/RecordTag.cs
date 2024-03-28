@@ -1,4 +1,4 @@
-﻿using FreeSql.DataAnnotations;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 using System;
 using System.Collections.Generic;
@@ -8,25 +8,30 @@ using System.Threading.Tasks;
 
 namespace DailyClock.Services.Tables
 {
-    [Table]
-    public record RecordTag
+    public partial class RecordTag : ObservableObject
     {
-        [Column(IsPrimary = true, IsIdentity = true)]
-        public long Id { get; set; }
-        public string Name { get; set; } = "";
-        [Column(StringLength = -1)]
-        public string Comment { get; set; } = "";
+        [ObservableProperty]
+        private long _id;
+        [ObservableProperty]
+        private string _name = "";
+        [ObservableProperty]
+        private string _comment = "";
 
-        public string Icon { get; set; } = "";
-        public string IconType { get; set; } = "Text";
-        public string Color { get; set; } = "";
+        [ObservableProperty]
+        private string _icon = "";
+        [ObservableProperty]
+        private string _iconType = "Text";
+        [ObservableProperty]
+        private string _color = "";
 
-        public long ParentId { get; set; }
-        public RecordTag? Parent { get; set; }
+        [ObservableProperty]
+        private long _parentId;
+        [ObservableProperty]
+        private RecordTag? _parent;
 
-        [Column(ServerTime = DateTimeKind.Utc, CanUpdate = false)]
-        public DateTime CreateedTime { get; set; }
-        [Column(ServerTime = DateTimeKind.Utc)]
-        public DateTime EditedTime { get; set; }
+        [ObservableProperty]
+        private DateTime _createedTime;
+        [ObservableProperty]
+        private DateTime _editedTime;
     }
 }

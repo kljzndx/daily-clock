@@ -45,6 +45,30 @@ namespace DailyClock
                 .UseAutoSyncStructure(true)
                 .Build();
 
+                fsql.CodeFirst.ConfigEntity<TimeRecord>(t =>
+                {
+                    t.Property(o => o.Id).IsPrimary(true).IsIdentity(true);
+                    t.Property(o => o.Message).StringLength(-1);
+                    t.Property(o => o.UpdateTime).ServerTime(DateTimeKind.Utc);
+                });
+
+                fsql.CodeFirst.ConfigEntity<RecordTag>(t =>
+                {
+                    t.Property(o => o.Id).IsPrimary(true).IsIdentity(true);
+                    t.Property(o => o.Comment).StringLength(-1);
+                    t.Navigate(o => o.Parent, nameof(RecordTag.ParentId));
+
+                    t.Property(o => o.CreateedTime).ServerTime(DateTimeKind.Utc).CanUpdate(false);
+                    t.Property(o => o.EditedTime).ServerTime(DateTimeKind.Utc);
+                });
+
+                fsql.CodeFirst.ConfigEntity<Mapping_TimeRecord_Tag>(t =>
+                {
+                    t.Property(o => o.Id).IsPrimary(true).IsIdentity(true);
+                    t.Navigate(o => o.Record, nameof(Mapping_TimeRecord_Tag.RecordId));
+                    t.Navigate(o => o.Tag, nameof(Mapping_TimeRecord_Tag.TagId));
+                });
+
                 return fsql;
             })
             .AddSingleton<MainViewModel>()
@@ -66,7 +90,7 @@ namespace DailyClock
                 string json = File.ReadAllText(filePath);
                 __result = JsonSerializer.Deserialize<AppSettings>(json);
             }
-            catch (FileNotFoundException) 
+            catch (FileNotFoundException)
             {
                 logger.LogError("未找到配置文件，将使用默认配置");
             }

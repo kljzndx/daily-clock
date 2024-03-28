@@ -1,23 +1,27 @@
-﻿using FreeSql.DataAnnotations;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DailyClock.Services.Tables
 {
-    [Table]
-    public record Mapping_TimeRecord_Tag
+    public partial class Mapping_TimeRecord_Tag : ObservableObject
     {
-        [Column(IsPrimary = true, IsIdentity = true)]
-        public long Id { get; set; }
+        [ObservableProperty]
+        private long _id;
 
-        public long RecordId { get; set; }
-        public TimeRecord? Record { get; set; }
+        [ObservableProperty]
+        private long _recordId;
+        [ObservableProperty]
+        private TimeRecord? _record;
 
-        public long TagId { get; set; }
-        public RecordTag? Tag { get; set; }
+        [ObservableProperty]
+        private long _tagId;
+        [ObservableProperty]
+        private RecordTag? _tag;
     }
 }
