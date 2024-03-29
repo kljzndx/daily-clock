@@ -40,10 +40,16 @@ namespace DailyClock
             .AddSingleton(s => GetConfig(s.GetRequiredService<ILogger<AppSettings>>()))
             .AddSingleton(s =>
             {
+                var logger = s.GetRequiredService<ILogger<App>>();
+                
+                logger.LogInformation("读取数据库");
+
                 var fsql = new FreeSqlBuilder()
                 .UseConnectionString(DataType.Sqlite, @"Data Source=main.db;")
                 .UseAutoSyncStructure(true)
                 .Build();
+                
+                logger.LogInformation("配置 TimeRecord 表");
 
                 fsql.CodeFirst.ConfigEntity<TimeRecord>(t =>
                 {
@@ -53,6 +59,8 @@ namespace DailyClock
                     
                     t.Property(o => o.UpdateTime).ServerTime(DateTimeKind.Utc);
                 });
+
+                logger.LogInformation("配置 RecordGroup 表");
 
                 fsql.CodeFirst.ConfigEntity<RecordGroup>(t =>
                 {
