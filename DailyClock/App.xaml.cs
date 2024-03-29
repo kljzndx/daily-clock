@@ -37,7 +37,7 @@ namespace DailyClock
                 .CreateLogger();
                 lb.AddSerilog(log);
             })
-            .AddSingleton(GetConfig)
+            .AddSingleton(s => GetConfig(s.GetRequiredService<ILogger<AppSettings>>()))
             .AddSingleton(s =>
             {
                 var fsql = new FreeSqlBuilder()
@@ -73,10 +73,9 @@ namespace DailyClock
             Ioc.Default.ConfigureServices(series);
         }
 
-        private AppSettings GetConfig(IServiceProvider services)
+        private AppSettings GetConfig(ILogger<AppSettings> logger)
         {
             string filePath = "./appsettings.json";
-            var logger = services.GetRequiredService<ILogger<AppSettings>>();
 
             logger.LogInformation("读取配置文件");
 
