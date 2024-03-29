@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace DailyClock.Services.Tables
     {
         public TimeRecord()
         {
-            
+
         }
 
         public TimeRecord(string title, string message, DateTime beginTime, DateTime endTime)
@@ -33,6 +34,11 @@ namespace DailyClock.Services.Tables
         private DateTime _beginTime;
         [ObservableProperty]
         private DateTime _endTime;
+
+        [ObservableProperty]
+        private long _groupId;
+        [ObservableProperty]
+        private RecordGroup? _group;
 
         [ObservableProperty]
         private DateTime _updateTime;

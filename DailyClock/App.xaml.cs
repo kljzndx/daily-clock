@@ -49,24 +49,20 @@ namespace DailyClock
                 {
                     t.Property(o => o.Id).IsPrimary(true).IsIdentity(true);
                     t.Property(o => o.Message).StringLength(-1);
+                    t.Navigate(o => o.Group, nameof(TimeRecord.GroupId));
+                    
                     t.Property(o => o.UpdateTime).ServerTime(DateTimeKind.Utc);
                 });
 
-                fsql.CodeFirst.ConfigEntity<RecordTag>(t =>
+                fsql.CodeFirst.ConfigEntity<RecordGroup>(t =>
                 {
                     t.Property(o => o.Id).IsPrimary(true).IsIdentity(true);
                     t.Property(o => o.Comment).StringLength(-1);
-                    t.Navigate(o => o.Parent, nameof(RecordTag.ParentId));
+                    t.Navigate(o => o.Parent, nameof(RecordGroup.ParentId));
+                    t.Navigate(o => o.Children, nameof(RecordGroup.ParentId));
 
                     t.Property(o => o.CreateedTime).ServerTime(DateTimeKind.Utc).CanUpdate(false);
                     t.Property(o => o.EditedTime).ServerTime(DateTimeKind.Utc);
-                });
-
-                fsql.CodeFirst.ConfigEntity<Mapping_TimeRecord_Tag>(t =>
-                {
-                    t.Property(o => o.Id).IsPrimary(true).IsIdentity(true);
-                    t.Navigate(o => o.Record, nameof(Mapping_TimeRecord_Tag.RecordId));
-                    t.Navigate(o => o.Tag, nameof(Mapping_TimeRecord_Tag.TagId));
                 });
 
                 return fsql;

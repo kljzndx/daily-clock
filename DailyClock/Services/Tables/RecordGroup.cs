@@ -2,13 +2,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DailyClock.Services.Tables
 {
-    public partial class RecordTag : ObservableObject
+    public partial class RecordGroup : ObservableObject
     {
         [ObservableProperty]
         private long _id;
@@ -27,7 +28,9 @@ namespace DailyClock.Services.Tables
         [ObservableProperty]
         private long _parentId;
         [ObservableProperty]
-        private RecordTag? _parent;
+        private RecordGroup? _parent;
+        [ObservableProperty]
+        private ObservableCollection<RecordGroup>? _children;
 
         [ObservableProperty]
         private DateTime _createedTime;
