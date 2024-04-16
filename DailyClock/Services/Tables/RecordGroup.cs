@@ -14,23 +14,23 @@ namespace DailyClock.Services.Tables
         [ObservableProperty]
         private long _id;
         [ObservableProperty]
-        private string _name = "";
+        private string _name = "新分组";
         [ObservableProperty]
         private string _comment = "";
 
         [ObservableProperty]
-        private string _icon = "";
+        private string _icon = "☺️";
         [ObservableProperty]
         private string _iconType = "Text";
         [ObservableProperty]
-        private string _color = "";
+        private string _color = "#FF000000";
 
         [ObservableProperty]
         private long _parentId;
         [ObservableProperty]
         private RecordGroup? _parent;
         [ObservableProperty]
-        private ObservableCollection<RecordGroup>? _children;
+        private ObservableCollection<RecordGroup> _children = new();
 
         [ObservableProperty]
         private DateTime _createedTime;
