@@ -8,8 +8,8 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:MainViewModel}"
         Title="MainWindow" Height="450" Width="800">
-    
+
     <Grid>
-        
+        <Frame x:Name="Main_Frame"/>
     </Grid>
 </Window>

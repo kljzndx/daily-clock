@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 
 using DailyClock.ViewModels;
+using DailyClock.Views;
 
 using System.Text;
 using System.Windows;
@@ -24,6 +25,13 @@ namespace DailyClock
         {
             InitializeComponent();
             this.DataContext = Ioc.Default.GetService<MainViewModel>();
+
+            this.Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object? sender, EventArgs e)
+        {
+            Main_Frame.Navigate(new GroupsPage());
         }
     }
 }
