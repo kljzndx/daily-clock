@@ -38,7 +38,7 @@
                                 </Style>
                             </StackPanel.Resources>
 
-                            <Rectangle Width="30" Height="30" Stroke="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" StrokeThickness="2">
+                            <Rectangle Width="30" Height="30" Stroke="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem}, Path=Foreground}" StrokeThickness="2">
                                 <Rectangle.Fill>
                                     <SolidColorBrush Color="{Binding Color, Converter={StaticResource StrClr}}"/>
                                 </Rectangle.Fill>
