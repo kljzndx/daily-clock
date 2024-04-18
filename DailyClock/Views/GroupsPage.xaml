@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:DailyClock.Views"
       xmlns:vm="clr-namespace:DailyClock.ViewModels"
       xmlns:cvt="clr-namespace:DailyClock.ViewModels.ValueConverters"
+      d:DataContext="{d:DesignInstance vm:GroupsViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GroupsPage">
