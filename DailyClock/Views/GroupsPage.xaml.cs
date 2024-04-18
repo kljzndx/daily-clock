@@ -23,7 +23,7 @@ namespace DailyClock.Views
     /// <summary>
     /// GroupsPage.xaml 的交互逻辑
     /// </summary>
-    public partial class GroupsPage : Page
+    public partial class GroupsPage : UserControl
     {
         private GroupsViewModel _viewModel;
 
