@@ -1,0 +1,73 @@
+﻿<Page x:Class="DailyClock.Views.GroupsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DailyClock.Views"
+      xmlns:vm="clr-namespace:DailyClock.ViewModels"
+      xmlns:cvt="clr-namespace:DailyClock.ViewModels.ValueConverters"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="GroupsPage">
+
+    <Page.Resources>
+        <cvt:StringToColorConverter x:Key="StrClr"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TreeView x:Name="Group_TreeView" ItemsSource="{Binding Groups}" SelectedItemChanged="Group_TreeView_SelectedItemChanged">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal" Margin="0,6">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontSize" Value="{StaticResource SubHeadFontSize}" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="4,0"/>
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <Rectangle Width="30" Height="30" Stroke="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" StrokeThickness="2">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="{Binding Color, Converter={StaticResource StrClr}}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock Text="{Binding Icon}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Button Command="{Binding CreateGroupCommand}">添加子组</Button>
+                <TextBlock Text="{Binding Status}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" Width="300">
+            <StackPanel Margin="16,0">
+                <Label Content="ID: "/>
+                <TextBlock Text="{Binding Selected.Id}"/>
+                <Label Content="名称: "/>
+                <TextBox Text="{Binding Selected.Name}"/>
+                <Label Content="图标: "/>
+                <TextBox Text="{Binding Selected.Icon}"/>
+                <Label Content="父级ID: "/>
+                <TextBlock Text="{Binding Selected.ParentId}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

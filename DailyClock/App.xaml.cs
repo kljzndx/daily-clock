@@ -75,6 +75,7 @@ namespace DailyClock
 
                 return fsql;
             })
+            .AddSingleton<GroupsViewModel>()
             .AddSingleton<MainViewModel>()
             .BuildServiceProvider();
 
