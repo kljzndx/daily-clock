@@ -31,7 +31,22 @@ namespace DailyClock
 
         private void MainWindow_Loaded(object? sender, EventArgs e)
         {
-            Main_Frame.Navigate(new GroupsPage());
+            NavigationBar_ListBox.SelectedIndex = 0;
+        }
+        
+        private void NavigationBar_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (NavigationBar_ListBox.SelectedIndex)
+            {
+                case 0:
+                    Main_Frame.Content = new RecordPage();
+                    break;
+                case 1:
+                    Main_Frame.Content = new GroupsPage();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

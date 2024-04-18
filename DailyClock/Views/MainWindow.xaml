@@ -10,6 +10,18 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
-        <Frame x:Name="Main_Frame"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <ListBox x:Name="NavigationBar_ListBox" SelectionChanged="NavigationBar_ListBox_SelectionChanged">
+                <ListBoxItem>记录</ListBoxItem>
+                <ListBoxItem>分组</ListBoxItem>
+            </ListBox>
+        </Grid>
+        
+        <ContentPresenter x:Name="Main_Frame" Grid.Column="1"/>
     </Grid>
 </Window>
