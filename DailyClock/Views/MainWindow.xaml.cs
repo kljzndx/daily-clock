@@ -36,17 +36,8 @@ namespace DailyClock
         
         private void NavigationBar_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (NavigationBar_ListBox.SelectedIndex)
-            {
-                case 0:
-                    Main_Frame.Content = new RecordPage();
-                    break;
-                case 1:
-                    Main_Frame.Content = new GroupsPage();
-                    break;
-                default:
-                    break;
-            }
+            if (NavigationBar_ListBox.Items[NavigationBar_ListBox.SelectedIndex] is ListBoxItem item)
+                Main_Frame.Content = item.Tag;
         }
     }
 }

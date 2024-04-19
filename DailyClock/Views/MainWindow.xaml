@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DailyClock"
+        xmlns:views="clr-namespace:DailyClock.Views"
         xmlns:vm="clr-namespace:DailyClock.ViewModels"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:MainViewModel}"
@@ -17,8 +17,16 @@
 
         <Grid>
             <ListBox x:Name="NavigationBar_ListBox" SelectionChanged="NavigationBar_ListBox_SelectionChanged">
-                <ListBoxItem>记录</ListBoxItem>
-                <ListBoxItem>分组</ListBoxItem>
+                <ListBoxItem Content="记录">
+                    <ListBoxItem.Tag>
+                        <views:RecordPage/>
+                    </ListBoxItem.Tag>
+                </ListBoxItem>
+                <ListBoxItem Content="分组">
+                    <ListBoxItem.Tag>
+                        <views:GroupsPage/>
+                    </ListBoxItem.Tag>
+                </ListBoxItem>
             </ListBox>
         </Grid>
         
