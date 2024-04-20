@@ -78,6 +78,7 @@ namespace DailyClock
             .AddSingleton<GroupsViewModel>()
             .AddSingleton<RecordManageViewModel>()
             .AddSingleton<MainViewModel>()
+            .AddSingleton<RecordViewModel>()
             .BuildServiceProvider();
 
             Ioc.Default.ConfigureServices(series);
