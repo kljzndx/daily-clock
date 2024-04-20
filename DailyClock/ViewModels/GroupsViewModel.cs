@@ -16,7 +16,7 @@ using System.Windows.Controls.Primitives;
 
 namespace DailyClock.ViewModels
 {
-    public partial class GroupsViewModel(ILogger<MainViewModel> logger, IFreeSql fsql) : ObservableRecipient
+    public partial class GroupsViewModel(ILogger<GroupsViewModel> logger, IFreeSql fsql) : ObservableRecipient
     {
         [ObservableProperty]
         private ObservableCollection<RecordGroup> _groups = new();
