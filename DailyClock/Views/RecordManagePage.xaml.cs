@@ -22,15 +22,15 @@ namespace DailyClock.Views
     /// <summary>
     /// RecordPage.xaml 的交互逻辑
     /// </summary>
-    public partial class RecordPage : UserControl
+    public partial class RecordManagePage : UserControl
     {
-        private RecordViewModel _viewModel;
+        private RecordManageViewModel _viewModel;
 
-        public RecordPage()
+        public RecordManagePage()
         {
             InitializeComponent();
 
-            _viewModel = Ioc.Default.GetRequiredService<RecordViewModel>();
+            _viewModel = Ioc.Default.GetRequiredService<RecordManageViewModel>();
             this.DataContext = _viewModel;
         }
     }

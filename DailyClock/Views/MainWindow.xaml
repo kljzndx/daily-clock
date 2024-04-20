@@ -19,7 +19,7 @@
             <ListBox x:Name="NavigationBar_ListBox" SelectionChanged="NavigationBar_ListBox_SelectionChanged">
                 <ListBoxItem Content="记录">
                     <ListBoxItem.Tag>
-                        <views:RecordPage/>
+                        <views:RecordManagePage/>
                     </ListBoxItem.Tag>
                 </ListBoxItem>
                 <ListBoxItem Content="分组">

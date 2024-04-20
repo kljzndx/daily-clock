@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DailyClock.ViewModels
 {
-    public partial class RecordViewModel : ObservableRecipient
+    public partial class RecordManageViewModel : ObservableRecipient
     {
 
     }
