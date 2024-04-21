@@ -54,7 +54,7 @@ namespace DailyClock
                 fsql.CodeFirst.ConfigEntity<TimeRecord>(t =>
                 {
                     t.Property(o => o.Id).IsPrimary(true).IsIdentity(true);
-                    t.Property(o => o.Message).StringLength(-1);
+                    t.Property(o => o.Information).StringLength(-1);
                     t.Navigate(o => o.Group, nameof(TimeRecord.GroupId));
                     
                     t.Property(o => o.UpdateTime).ServerTime(DateTimeKind.Utc);
