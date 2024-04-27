@@ -23,7 +23,7 @@ namespace DailyClock.Views
     /// </summary>
     public partial class RecordWindow : Window
     {
-        private RecordViewModel _viewModel;
+        private readonly RecordViewModel _viewModel;
 
         public RecordWindow()
         {
@@ -31,6 +31,18 @@ namespace DailyClock.Views
             _viewModel = Ioc.Default.GetRequiredService<RecordViewModel>();
 
             this.DataContext = _viewModel;
+
+            this.Activated += RecordWindow_Activated;
+        }
+
+        private async void RecordWindow_Activated(object? sender, EventArgs e)
+        {
+            await _viewModel.LoadGroupData();
+        }
+
+        private void ManageGroup_Button_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
         }
     }
 }

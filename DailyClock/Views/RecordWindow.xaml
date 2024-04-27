@@ -6,10 +6,32 @@
         xmlns:local="clr-namespace:DailyClock.Views"
         xmlns:vm="clr-namespace:DailyClock.ViewModels"
         mc:Ignorable="d"
-        Title="RecordWindow" Height="200" Width="300"
+        Title="RecordWindow" Height="300" Width="200"
         d:DataContext="{d:DesignInstance vm:RecordViewModel}">
-    
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1">
+            <Label>分组:</Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox ItemsSource="{Binding Groups}" DisplayMemberPath="Value" SelectedValue="{Binding SelectedGroupId}" SelectedValuePath="Key"/>
+                <Button Grid.Column="1" Click="ManageGroup_Button_Click">管理</Button>
+            </Grid>
+            <Label>名称</Label>
+            <TextBox Text="{Binding Name}" />
+            <Label>详细信息</Label>
+            <TextBox  Text="{Binding Information}"/>
+
+            <Button Command="{Binding SubmitCommand}">提交</Button>
+        </StackPanel>
     </Grid>
 </Window>
