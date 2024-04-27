@@ -16,13 +16,13 @@ namespace DailyClock.Services.Tables
 
         }
 
-        public TimeRecord(string name, string information, DateTime beginTime, DateTime endTime, RecordGroup group)
+        public TimeRecord(string name, string information, DateTime createTime, RecordGroup group)
         {
             _name = name;
             _information = information;
-            _beginTime = beginTime;
-            _endTime = endTime;
+            _createTime = createTime;
             _group = group;
+            _groupId = group.Id;
         }
 
         [ObservableProperty]
@@ -32,15 +32,12 @@ namespace DailyClock.Services.Tables
         [ObservableProperty]
         private string _information = "";
         [ObservableProperty]
-        private DateTime _beginTime;
-        [ObservableProperty]
-        private DateTime _endTime;
-
-        [ObservableProperty]
         private long _groupId;
         [ObservableProperty]
         private RecordGroup? _group;
 
+        [ObservableProperty]
+        private DateTime _createTime;
         [ObservableProperty]
         private DateTime _updateTime;
     }
