@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 
 using DailyClock.Models;
+using DailyClock.Models.Tones;
+using DailyClock.Services;
 using DailyClock.Services.Tables;
 using DailyClock.ViewModels;
 
@@ -75,10 +77,16 @@ namespace DailyClock
 
                 return fsql;
             })
+            .AddSingleton<TonesFactory>()
+            .AddSingleton<AudioService>()
+
             .AddSingleton<GroupsViewModel>()
             .AddSingleton<RecordManageViewModel>()
             .AddSingleton<MainViewModel>()
+
             .AddSingleton<RecordViewModel>()
+
+            .AddSingleton<TonesManageViewModel>()
             .BuildServiceProvider();
 
             Ioc.Default.ConfigureServices(series);

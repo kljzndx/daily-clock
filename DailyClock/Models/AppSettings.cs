@@ -1,7 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
+using DailyClock.Models.Tones;
+
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,8 +17,13 @@ namespace DailyClock.Models
 {
     public partial class AppSettings : ObservableObject
     {
+
         [ObservableProperty]
-        private string _test1 = "Hello world";
+        private ObservableCollection<TonesGroup> _tonesGroups = [];
+
+        public void Save(){
+            OnPropertyChanged("Manual Save");
+        }
 
         public override string ToString()
         {
