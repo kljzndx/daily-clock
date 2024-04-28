@@ -27,6 +27,11 @@
                         <views:GroupsPage/>
                     </ListBoxItem.Tag>
                 </ListBoxItem>
+                <ListBoxItem Content="铃声">
+                    <ListBoxItem.Tag>
+                        <views:TonesManagePage/>
+                    </ListBoxItem.Tag>
+                </ListBoxItem>
             </ListBox>
         </Grid>
         
