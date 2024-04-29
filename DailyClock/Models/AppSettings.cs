@@ -10,7 +10,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace DailyClock.Models
@@ -27,7 +29,7 @@ namespace DailyClock.Models
 
         public override string ToString()
         {
-            return JsonSerializer.Serialize(this, options: new() { WriteIndented = true });
+            return JsonSerializer.Serialize(this, options: new() { WriteIndented = true, Encoder = JavaScriptEncoder.Create(UnicodeRanges.All) });
         }
     }
 }
