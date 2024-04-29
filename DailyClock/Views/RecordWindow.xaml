@@ -7,7 +7,8 @@
         xmlns:vm="clr-namespace:DailyClock.ViewModels"
         mc:Ignorable="d"
         Title="RecordWindow" Height="300" Width="200"
-        d:DataContext="{d:DesignInstance vm:RecordViewModel}">
+        d:DataContext="{d:DesignInstance vm:RecordViewModel}"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Record}">
 
     <Grid>
         <Grid.RowDefinitions>

@@ -21,10 +21,11 @@ namespace DailyClock
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel _viewModel => (MainViewModel) this.DataContext;
+
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = Ioc.Default.GetService<MainViewModel>();
 
             this.Loaded += MainWindow_Loaded;
         }

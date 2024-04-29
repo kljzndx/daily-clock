@@ -24,14 +24,11 @@ namespace DailyClock.Views
     /// </summary>
     public partial class TonesManagePage : UserControl
     {
-        private TonesManageViewModel _viewModel;
+        private TonesManageViewModel _viewModel => (TonesManageViewModel) this.DataContext;
 
         public TonesManagePage()
         {
             InitializeComponent();
-
-            _viewModel = Ioc.Default.GetRequiredService<TonesManageViewModel>();
-            this.DataContext = _viewModel;
         }
     }
 }

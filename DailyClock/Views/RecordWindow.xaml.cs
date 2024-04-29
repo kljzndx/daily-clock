@@ -23,14 +23,11 @@ namespace DailyClock.Views
     /// </summary>
     public partial class RecordWindow : Window
     {
-        private readonly RecordViewModel _viewModel;
+        private RecordViewModel _viewModel => (RecordViewModel) this.DataContext;
 
         public RecordWindow()
         {
             InitializeComponent();
-            _viewModel = Ioc.Default.GetRequiredService<RecordViewModel>();
-
-            this.DataContext = _viewModel;
 
             this.Activated += RecordWindow_Activated;
         }

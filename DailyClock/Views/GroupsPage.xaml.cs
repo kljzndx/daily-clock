@@ -25,14 +25,11 @@ namespace DailyClock.Views
     /// </summary>
     public partial class GroupsPage : UserControl
     {
-        private GroupsViewModel _viewModel;
+        private GroupsViewModel _viewModel => (GroupsViewModel) this.DataContext;
 
         public GroupsPage()
         {
             InitializeComponent();
-
-            _viewModel = Ioc.Default.GetRequiredService<GroupsViewModel>();
-            this.DataContext = _viewModel;
 
             this.Loaded += GroupsPage_Loaded;
         }

@@ -24,14 +24,11 @@ namespace DailyClock.Views
     /// </summary>
     public partial class RecordManagePage : UserControl
     {
-        private RecordManageViewModel _viewModel;
+        private RecordManageViewModel _viewModel => (RecordManageViewModel) this.DataContext;
 
         public RecordManagePage()
         {
             InitializeComponent();
-
-            _viewModel = Ioc.Default.GetRequiredService<RecordManageViewModel>();
-            this.DataContext = _viewModel;
         }
     }
 }
