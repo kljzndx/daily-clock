@@ -18,17 +18,7 @@ namespace DailyClock.ViewModels
         [ObservableProperty]
         private Dictionary<long, string> _groups = [];
         [ObservableProperty]
-        private long _selectedGroupId;
-
-        [ObservableProperty]
-        private string _name = "";
-        [ObservableProperty]
-        private string _information = "";
-
-        [ObservableProperty]
-        private DateTime _currentTime = DateTime.Now;
-        [ObservableProperty]
-        private DateTime _nextTime = DateTime.Now.AddMinutes(5);
+        private TimeRecord _theRecord = new();
 
         public async Task LoadGroupData()
         {
@@ -68,9 +58,9 @@ namespace DailyClock.ViewModels
         [RelayCommand]
         private async Task Submit()
         {
-            var rec = new TimeRecord(Name, Information, CurrentTime, await fsql.Select<RecordGroup>(SelectedGroupId).ToOneAsync());
-
-            rec.Id = await fsql.Insert(rec).ExecuteIdentityAsync();
+            TheRecord.CreateTime = DateTime.UtcNow;
+            var row = await fsql.Insert(TheRecord).ExecuteAffrowsAsync();
+            logger.LogInformation("已插入：{row} 条数据", row);
         }
     }
 }

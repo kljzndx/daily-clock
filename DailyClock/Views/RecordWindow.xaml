@@ -24,13 +24,13 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <ComboBox ItemsSource="{Binding Groups}" DisplayMemberPath="Value" SelectedValue="{Binding SelectedGroupId}" SelectedValuePath="Key"/>
+                <ComboBox ItemsSource="{Binding Groups}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding TheRecord.GroupId}"/>
                 <Button Grid.Column="1" Click="ManageGroup_Button_Click">管理</Button>
             </Grid>
             <Label>名称</Label>
-            <TextBox Text="{Binding Name}" />
+            <TextBox Text="{Binding TheRecord.Name}" />
             <Label>详细信息</Label>
-            <TextBox  Text="{Binding Information}"/>
+            <TextBox  Text="{Binding TheRecord.Information}"/>
 
             <Button Command="{Binding SubmitCommand}">提交</Button>
         </StackPanel>
