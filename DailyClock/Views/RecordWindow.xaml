@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DailyClock.Views"
         xmlns:vm="clr-namespace:DailyClock.ViewModels"
         mc:Ignorable="d"
-        Title="RecordWindow" Height="300" Width="200"
+        Title="" Height="300" Width="200" ResizeMode="NoResize" WindowStyle="None"
         d:DataContext="{d:DesignInstance vm:RecordViewModel}"
         DataContext="{Binding Source={StaticResource Locator}, Path=Record}">
 

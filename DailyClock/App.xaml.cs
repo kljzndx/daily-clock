@@ -8,6 +8,8 @@ using DailyClock.ViewModels;
 
 using FreeSql;
 
+using H.NotifyIcon;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -18,6 +20,7 @@ using System.Data;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace DailyClock
 {
@@ -77,6 +80,7 @@ namespace DailyClock
 
                 return fsql;
             })
+            .AddSingleton<TimeService>()
             .AddSingleton<TonesFactory>()
             .AddSingleton<AudioService>()
 
@@ -90,6 +94,14 @@ namespace DailyClock
             .BuildServiceProvider();
 
             Ioc.Default.ConfigureServices(series);
+
+            var tb = ((TaskbarIcon)this.FindResource("AppTb"));
+            tb.ForceCreate();
+        }
+
+        protected override void OnLoadCompleted(NavigationEventArgs e)
+        {
+            base.OnLoadCompleted(e);
         }
 
         private AppSettings GetConfig(ILogger<AppSettings> logger)
@@ -134,6 +146,16 @@ namespace DailyClock
             };
 
             return result;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Shutdown();
+        }
+
+        private void TaskbarIcon_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Ioc.Default.GetRequiredService<RecordViewModel>().ShowWindow();
         }
     }
 

@@ -34,7 +34,7 @@ namespace DailyClock.Views
 
         private async void RecordWindow_Activated(object? sender, EventArgs e)
         {
-            await _viewModel.LoadGroupData();
+            await _viewModel.Init(this);
         }
 
         private void ManageGroup_Button_Click(object sender, RoutedEventArgs e)

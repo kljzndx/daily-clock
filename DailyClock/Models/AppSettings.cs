@@ -19,9 +19,11 @@ namespace DailyClock.Models
 {
     public partial class AppSettings : ObservableObject
     {
-
         [ObservableProperty]
         private ObservableCollection<TonesGroup> _tonesGroups = [];
+
+        [ObservableProperty]
+        private int _kickInterval = 5;
 
         public void Save(){
             OnPropertyChanged("Manual Save");
