@@ -12,7 +12,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="FreeSql.Provider.SqliteCore" Version="3.2.821" />
-    <PackageReference Include="H.NotifyIcon.Wpf" Version="2.0.124" />
+    <PackageReference Include="H.NotifyIcon.Wpf" Version="2.0.129" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="NAudio" Version="2.2.1" />
