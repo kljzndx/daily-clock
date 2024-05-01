@@ -54,6 +54,7 @@ namespace DailyClock.ViewModels
         private bool CanReadGroup => SelectedGroup != null;
         private bool CanReadProp => SelectedProp != null && CanReadGroup;
         private bool CanRemoveGroup => CanReadGroup && Settings.TonesGroups.Count > 1;
+        private bool CanRemoveProp => CanReadProp && SelectedGroup!.Items.Count > 1;
 
         [RelayCommand(CanExecute = nameof(CanReadProp))]
         private void PlayTone()
@@ -89,7 +90,7 @@ namespace DailyClock.ViewModels
             Settings.Save();
         }
 
-        [RelayCommand(CanExecute = nameof(CanReadProp))]
+        [RelayCommand(CanExecute = nameof(CanRemoveProp))]
         private void RemoveProp()
         {
             SelectedGroup!.Items.Remove(SelectedProp!);
