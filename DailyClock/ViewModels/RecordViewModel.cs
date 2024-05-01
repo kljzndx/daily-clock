@@ -102,7 +102,7 @@ namespace DailyClock.ViewModels
 
         private void SetupKickTime()
         {
-            _kickTime = DateTime.UtcNow.AddMinutes(Svc_Settings.KickInterval);
+            _kickTime = DateTime.UtcNow.AddMinutes(Svc_Settings.HitClockInterval);
             _isKicked = false;
         }
 

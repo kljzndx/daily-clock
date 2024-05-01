@@ -23,7 +23,7 @@ namespace DailyClock.Models
         private ObservableCollection<TonesGroup> _tonesGroups = [];
 
         [ObservableProperty]
-        private int _kickInterval = 5;
+        private int _hitClockInterval = 5;
 
         public void Save(){
             OnPropertyChanged("Manual Save");
