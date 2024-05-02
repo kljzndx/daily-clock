@@ -18,10 +18,10 @@ using System.Threading.Tasks;
 
 namespace DailyClock.ViewModels
 {
-    public partial class RecordViewModel(ILogger<RecordViewModel> logger, IFreeSql fsql, AppSettings appSettings, TimeService timeService, AudioService audioService) : ObservableRecipient
+    public partial class RecordViewModel(ILogger<RecordViewModel> logger, IFreeSql fsql, AppSettings appSettings, AlarmService alarmTimeService) : ObservableRecipient
     {
         public AppSettings Svc_Settings { get; } = appSettings;
-        public TimeService Svc_Time { get; } = timeService;
+        public AlarmService Svc_AlarmTime { get; } = alarmTimeService;
 
         private RecordWindow? _recordWindow;
         private bool _isInited;
@@ -31,17 +31,13 @@ namespace DailyClock.ViewModels
         [ObservableProperty]
         private TimeRecord _theRecord = new();
 
-        private bool _isKicked = true;
-        private DateTime _kickTime;
-
         public async Task Init(RecordWindow window)
         {
             _recordWindow = window;
 
             if (_isInited) return;
 
-            Svc_Time.Tick += Svc_Time_Tick;
-            Svc_Time.BeginTimer();
+            Svc_AlarmTime.Init();
 
             await LoadGroupData();
             
@@ -50,7 +46,7 @@ namespace DailyClock.ViewModels
 
         public void ShowWindow()
         {
-            _isKicked = true;
+            Svc_AlarmTime.IsEnabled = false;
             new RecordWindow().Show();
         }
 
@@ -92,29 +88,12 @@ namespace DailyClock.ViewModels
         [RelayCommand]
         private async Task Submit()
         {
-            TheRecord.CreateTime = Svc_Time.CurrentTime;
+            TheRecord.CreateTime = Svc_AlarmTime.CurrentTime;
             var row = await fsql.Insert(TheRecord).ExecuteAffrowsAsync();
             logger.LogInformation("已插入：{row} 条数据", row);
 
-            SetupKickTime();
+            Svc_AlarmTime.IsEnabled = true;
             _recordWindow?.Close();
-        }
-
-        private void SetupKickTime()
-        {
-            _kickTime = DateTime.UtcNow.AddMinutes(Svc_Settings.HitClockInterval);
-            _isKicked = false;
-        }
-
-        private void Svc_Time_Tick(object? sender, DateTime e)
-        {
-            if (!_isKicked && e > _kickTime)
-            {
-                _isKicked = true;
-
-                audioService.Play(Svc_Settings.TonesGroups[0]);
-                ShowWindow();
-            }
         }
     }
 }
