@@ -32,7 +32,7 @@
             <Label>详细信息</Label>
             <TextBox  Text="{Binding TheRecord.Information}"/>
 
-            <Button Command="{Binding SubmitCommand}">提交</Button>
+            <Button Click="Submit_Button_Click">提交</Button>
         </StackPanel>
     </Grid>
 </Window>

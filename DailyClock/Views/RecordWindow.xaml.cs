@@ -34,12 +34,18 @@ namespace DailyClock.Views
 
         private async void RecordWindow_Activated(object? sender, EventArgs e)
         {
-            await _viewModel.Init(this);
+            await _viewModel.Init();
         }
 
         private void ManageGroup_Button_Click(object sender, RoutedEventArgs e)
         {
             new MainWindow().Show();
+        }
+
+        private async void Submit_Button_Click(object sender, RoutedEventArgs e)
+        {
+            await _viewModel.Submit();
+            this.Close();
         }
     }
 }
