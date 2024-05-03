@@ -20,6 +20,9 @@ namespace DailyClock.Models
     public partial class AppSettings : ObservableObject
     {
         [ObservableProperty]
+        private string _fileVersion = "1.0";
+
+        [ObservableProperty]
         private ObservableCollection<TonesGroup> _tonesGroups = [];
         [ObservableProperty]
         private int _recordGroupSelectedId = 0;
