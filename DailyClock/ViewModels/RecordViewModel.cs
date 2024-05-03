@@ -34,11 +34,6 @@ namespace DailyClock.ViewModels
             await LoadGroupData();
         }
 
-        public void ShowWindow()
-        {
-            new RecordWindow().Show();
-        }
-
         public async Task LoadGroupData()
         {
             logger.LogInformation("开始导入分组数据");

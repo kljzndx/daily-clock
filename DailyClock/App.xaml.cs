@@ -5,6 +5,7 @@ using DailyClock.Models.Tones;
 using DailyClock.Services;
 using DailyClock.Services.Tables;
 using DailyClock.ViewModels;
+using DailyClock.Views;
 
 using FreeSql;
 
@@ -156,7 +157,7 @@ namespace DailyClock
 
         private void TaskbarIcon_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Ioc.Default.GetRequiredService<RecordViewModel>().ShowWindow();
+            new RecordWindow().Show();
         }
     }
 
