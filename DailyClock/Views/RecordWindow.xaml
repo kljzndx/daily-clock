@@ -24,7 +24,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <ComboBox ItemsSource="{Binding Groups}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding TheRecord.GroupId}"/>
+                <ComboBox SelectedIndex="{Binding Svc_Settings.RecordGroupSelectedId}" ItemsSource="{Binding Groups}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding TheRecord.GroupId}"/>
                 <Button Grid.Column="1" Click="ManageGroup_Button_Click">管理</Button>
             </Grid>
             <Label>名称</Label>

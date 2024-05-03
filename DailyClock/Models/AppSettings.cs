@@ -21,6 +21,8 @@ namespace DailyClock.Models
     {
         [ObservableProperty]
         private ObservableCollection<TonesGroup> _tonesGroups = [];
+        [ObservableProperty]
+        private int _recordGroupSelectedId = 0;
 
         [ObservableProperty]
         private int _hitClockInterval = 5;
