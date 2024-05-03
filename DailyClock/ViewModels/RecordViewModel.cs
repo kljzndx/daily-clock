@@ -24,7 +24,6 @@ namespace DailyClock.ViewModels
         public AlarmService Svc_AlarmTime { get; } = alarmTimeService;
 
         private RecordWindow? _recordWindow;
-        private bool _isInited;
 
         [ObservableProperty]
         private Dictionary<long, string> _groups = [];
@@ -34,14 +33,8 @@ namespace DailyClock.ViewModels
         public async Task Init(RecordWindow window)
         {
             _recordWindow = window;
-
-            if (_isInited) return;
-
             Svc_AlarmTime.Init();
-
             await LoadGroupData();
-            
-            _isInited = true;
         }
 
         public void ShowWindow()
