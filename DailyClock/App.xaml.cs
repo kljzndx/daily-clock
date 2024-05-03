@@ -83,6 +83,7 @@ namespace DailyClock
             .AddSingleton<TimeService>()
             .AddSingleton<TonesFactory>()
             .AddSingleton<AudioService>()
+            .AddSingleton<AlarmService>()
 
             .AddSingleton<GroupsViewModel>()
             .AddSingleton<RecordManageViewModel>()
