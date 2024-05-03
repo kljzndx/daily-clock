@@ -61,10 +61,7 @@ namespace DailyClock.Services
                 }
             }
             else
-            {
-                CountdownSecond = -1;
                 HitTime = e.AddMinutes(_svcSettings.HitClockInterval);
-            }
         }
 
         public void HitClock()
