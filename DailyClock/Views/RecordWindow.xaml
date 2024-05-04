@@ -15,7 +15,25 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        <Border Background="SkyBlue">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                </StackPanel.Resources>
+                
+                <TextBlock>当前时间</TextBlock>
+                <TextBlock Text="{Binding Svc_AlarmTime.CurrentTime, Converter={StaticResource DateTimeToString}}"/>
 
+                <Rectangle Height="16" Fill="Transparent"/>
+
+                <TextBlock>下次提醒时间</TextBlock>
+                <TextBlock Text="{Binding Svc_AlarmTime.HitTime, Converter={StaticResource DateTimeToString}}"/>
+            </StackPanel>
+        </Border>
+        
         <StackPanel Grid.Row="1">
             <Label>分组:</Label>
             <Grid>
