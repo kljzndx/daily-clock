@@ -10,6 +10,14 @@
         d:DataContext="{d:DesignInstance vm:RecordViewModel}"
         DataContext="{Binding Source={StaticResource Locator}, Path=Record}">
 
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="Close_CommandBinding_Executed"/>
+    </Window.CommandBindings>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="32" />
+    </WindowChrome.WindowChrome>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -17,21 +25,32 @@
         </Grid.RowDefinitions>
         
         <Border Background="SkyBlue">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <StackPanel.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                    </Style>
-                </StackPanel.Resources>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Button Command="Close" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Padding="12,8">X</Button>
+                </Grid>
                 
-                <TextBlock>当前时间</TextBlock>
-                <TextBlock Text="{Binding Svc_AlarmTime.CurrentTime, Converter={StaticResource DateTimeToString}}"/>
+                <StackPanel Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </StackPanel.Resources>
 
-                <Rectangle Height="16" Fill="Transparent"/>
+                    <TextBlock>当前时间</TextBlock>
+                    <TextBlock Text="{Binding Svc_AlarmTime.CurrentTime, Converter={StaticResource DateTimeToString}}"/>
 
-                <TextBlock>下次提醒时间</TextBlock>
-                <TextBlock Text="{Binding Svc_AlarmTime.HitTime, Converter={StaticResource DateTimeToString}}"/>
-            </StackPanel>
+                    <Rectangle Height="16" Fill="Transparent"/>
+
+                    <TextBlock>下次提醒时间</TextBlock>
+                    <TextBlock Text="{Binding Svc_AlarmTime.HitTime, Converter={StaticResource DateTimeToString}}"/>
+                </StackPanel>
+            </Grid>
         </Border>
         
         <StackPanel Grid.Row="1">

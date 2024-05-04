@@ -29,6 +29,8 @@ namespace DailyClock.Views
         {
             InitializeComponent();
 
+            var comBind = new CommandBinding(ApplicationCommands.Close);
+
             this.Activated += RecordWindow_Activated;
         }
 
@@ -45,6 +47,11 @@ namespace DailyClock.Views
         private async void Submit_Button_Click(object sender, RoutedEventArgs e)
         {
             await _viewModel.Submit();
+            this.Close();
+        }
+
+        private void Close_CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
             this.Close();
         }
     }
