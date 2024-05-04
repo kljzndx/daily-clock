@@ -16,5 +16,6 @@ namespace DailyClock.ViewModels
         public TonesManageViewModel TonesManage => Ioc.Default.GetRequiredService<TonesManageViewModel>();
 
         public RecordViewModel Record => Ioc.Default.GetRequiredService<RecordViewModel>();
+        public TaskbarIconViewModel TaskbarIcon => Ioc.Default.GetRequiredService<TaskbarIconViewModel>();
     }
 }

@@ -10,7 +10,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator"/>
-            <tb:TaskbarIcon x:Key="AppTb" ToolTipText="cccccc" MouseLeftButtonUp="TaskbarIcon_MouseLeftButtonUp">
+            <tb:TaskbarIcon x:Key="AppTb" DataContext="{Binding Source={StaticResource Locator}, Path=TaskbarIcon}" ToolTipText="{Binding Message}" NoLeftClickDelay="True" LeftClickCommand="{Binding ShowRecWindowCommand}">
                 <tb:TaskbarIcon.IconSource>
                     <tb:GeneratedIconSource Text="P" Foreground="Black" Background="SkyBlue">
                         
@@ -19,7 +19,7 @@
 
                 <tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="退出" Click="MenuItem_Click"/>
+                        <MenuItem Header="退出" Command="{Binding ExitCommand}"/>
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>
             </tb:TaskbarIcon>

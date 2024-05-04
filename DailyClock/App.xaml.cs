@@ -86,13 +86,15 @@ namespace DailyClock
             .AddSingleton<AudioService>()
             .AddSingleton<AlarmService>()
 
+            .AddSingleton<TaskbarIconViewModel>()
+
             .AddSingleton<GroupsViewModel>()
             .AddSingleton<RecordManageViewModel>()
+            .AddSingleton<TonesManageViewModel>()
             .AddSingleton<MainViewModel>()
 
             .AddSingleton<RecordViewModel>()
 
-            .AddSingleton<TonesManageViewModel>()
             .BuildServiceProvider();
 
             Ioc.Default.ConfigureServices(series);
@@ -149,16 +151,5 @@ namespace DailyClock
 
             return result;
         }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            this.Shutdown();
-        }
-
-        private void TaskbarIcon_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            new RecordWindow().Show();
-        }
     }
-
 }

@@ -8,6 +8,14 @@ using System.Windows.Data;
 
 namespace DailyClock.ViewModels.ValueConverters
 {
+    public static class DateTimeExtensions
+    {
+        public static string ToZhString(this DateTime dateTime)
+        {
+            return dateTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
+        }
+    }
+
     public class DateTimeToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
