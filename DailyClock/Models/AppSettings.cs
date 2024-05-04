@@ -14,6 +14,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DailyClock.Models
 {
@@ -24,9 +25,13 @@ namespace DailyClock.Models
 
         [ObservableProperty]
         private ObservableCollection<TonesGroup> _tonesGroups = [];
+
+        [ObservableProperty]
+        private double _recWindowX = SystemParameters.WorkArea.Width - 200;
+        [ObservableProperty]
+        private double _recWindowY = SystemParameters.WorkArea.Height - 300;
         [ObservableProperty]
         private int _recordGroupSelectedId = 0;
-
         [ObservableProperty]
         private int _hitClockInterval = 5;
 
