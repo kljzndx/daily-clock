@@ -103,11 +103,6 @@ namespace DailyClock
             tb.ForceCreate();
         }
 
-        protected override void OnLoadCompleted(NavigationEventArgs e)
-        {
-            base.OnLoadCompleted(e);
-        }
-
         private AppSettings GetConfig(ILogger<AppSettings> logger)
         {
             string filePath = "./appsettings.json";
