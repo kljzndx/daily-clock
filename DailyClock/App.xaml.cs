@@ -100,8 +100,7 @@ namespace DailyClock
 
             Ioc.Default.ConfigureServices(series);
 
-            var tb = ((TaskbarIcon)this.FindResource("AppTb"));
-            tb.ForceCreate();
+            ((TaskbarIcon)this.FindResource("AppTb")).ForceCreate();
         }
 
         private AppSettings GetConfig(ILogger logger)
