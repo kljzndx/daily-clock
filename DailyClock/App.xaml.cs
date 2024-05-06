@@ -81,6 +81,8 @@ namespace DailyClock
 
                 return fsql;
             })
+            .AddSingleton<RecordGroupService>()
+
             .AddSingleton<TimeService>()
             .AddSingleton<TonesFactory>()
             .AddSingleton<AudioService>()
