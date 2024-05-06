@@ -2,8 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 
 using DailyClock.Services;
-using DailyClock.Services.Tables;
-using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Generic;

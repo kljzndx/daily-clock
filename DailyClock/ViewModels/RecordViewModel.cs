@@ -4,11 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using DailyClock.Models;
 using DailyClock.Services;
 using DailyClock.Services.Tables;
-using DailyClock.Views;
-
-using H.NotifyIcon;
-
-using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Generic;

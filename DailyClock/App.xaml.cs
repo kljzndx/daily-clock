@@ -12,7 +12,6 @@ using FreeSql;
 using H.NotifyIcon;
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 using Serilog;
 
@@ -35,27 +34,28 @@ namespace DailyClock
             base.OnStartup(e);
 
             var series = new ServiceCollection()
-            .AddLogging(lb =>
+            .AddSingleton<ILogger>(lb =>
             {
                 var log = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.File(Path.Combine(Environment.CurrentDirectory, "main.log"), fileSizeLimitBytes: 10240)
                 .CreateLogger();
-                lb.AddSerilog(log);
+
+                return log;
             })
-            .AddSingleton(s => GetConfig(s.GetRequiredService<ILogger<AppSettings>>()))
+            .AddSingleton(s => GetConfig(s.GetRequiredService<ILogger>()))
             .AddSingleton(s =>
             {
-                var logger = s.GetRequiredService<ILogger<App>>();
+                var logger = s.GetRequiredService<ILogger>();
                 
-                logger.LogInformation("读取数据库");
+                logger.Information("读取数据库");
 
                 var fsql = new FreeSqlBuilder()
                 .UseConnectionString(DataType.Sqlite, @"Data Source=main.db;")
                 .UseAutoSyncStructure(true)
                 .Build();
                 
-                logger.LogInformation("配置 TimeRecord 表");
+                logger.Information("配置 TimeRecord 表");
 
                 fsql.CodeFirst.ConfigEntity<TimeRecord>(t =>
                 {
@@ -66,7 +66,7 @@ namespace DailyClock
                     t.Property(o => o.UpdateTime).ServerTime(DateTimeKind.Utc);
                 });
 
-                logger.LogInformation("配置 RecordGroup 表");
+                logger.Information("配置 RecordGroup 表");
 
                 fsql.CodeFirst.ConfigEntity<RecordGroup>(t =>
                 {
@@ -93,10 +93,9 @@ namespace DailyClock
             .AddSingleton<GroupsViewModel>()
             .AddSingleton<RecordManageViewModel>()
             .AddSingleton<TonesManageViewModel>()
+
             .AddSingleton<MainViewModel>()
-
             .AddSingleton<RecordViewModel>()
-
             .BuildServiceProvider();
 
             Ioc.Default.ConfigureServices(series);
@@ -105,11 +104,11 @@ namespace DailyClock
             tb.ForceCreate();
         }
 
-        private AppSettings GetConfig(ILogger<AppSettings> logger)
+        private AppSettings GetConfig(ILogger logger)
         {
             string filePath = "./appsettings.json";
 
-            logger.LogInformation("读取配置文件");
+            logger.Information("读取配置文件");
 
             AppSettings? __result = null;
             try
@@ -119,11 +118,11 @@ namespace DailyClock
             }
             catch (FileNotFoundException)
             {
-                logger.LogError("未找到配置文件，将使用默认配置");
+                logger.Error("未找到配置文件，将使用默认配置");
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "读取配置文件失败，将使用默认配置");
+                logger.Error(ex, "读取配置文件失败，将使用默认配置");
             }
 
             AppSettings result = __result ?? new();
@@ -133,8 +132,8 @@ namespace DailyClock
                 if (s is not AppSettings the)
                     return;
 
-                var l = Ioc.Default.GetRequiredService<ILogger<AppSettings>>();
-                l.LogInformation("保存配置文件");
+                var l = Ioc.Default.GetRequiredService<ILogger>();
+                l.Information("保存配置文件");
 
                 try
                 {
@@ -142,7 +141,7 @@ namespace DailyClock
                 }
                 catch (Exception ex)
                 {
-                    l.LogError(ex, "保存配置文件失败");
+                    l.Error(ex, "保存配置文件失败");
                 }
             };
 
