@@ -18,62 +18,26 @@ using System.Threading.Tasks;
 
 namespace DailyClock.ViewModels
 {
-    public partial class RecordViewModel(ILogger<RecordViewModel> logger, IFreeSql fsql, AppSettings appSettings, AlarmService alarmTimeService) : ObservableRecipient
+    public partial class RecordViewModel(IFreeSql fsql, AppSettings appSettings, RecordGroupService groupService, AlarmService alarmTimeService) : ObservableRecipient
     {
         public AppSettings Svc_Settings { get; } = appSettings;
         public AlarmService Svc_AlarmTime { get; } = alarmTimeService;
+        public RecordGroupService Svc_Group { get; } = groupService;
 
-        [ObservableProperty]
-        private Dictionary<long, string> _groups = [];
         [ObservableProperty]
         private TimeRecord _theRecord = new();
 
         public async Task Init()
         {
             Svc_AlarmTime.Init();
-            await LoadGroupData();
-        }
-
-        public async Task LoadGroupData()
-        {
-            logger.LogInformation("开始导入分组数据");
-            var groupList = await fsql.Select<RecordGroup>().ToListAsync(t => new ValueTuple<long, long, string>(t.Id, t.ParentId, t.Name));
-            logger.LogInformation("已导入 {count} 条数据", groupList.Count);
-            Groups = GetTreeList(groupList);
-        }
-
-        private Dictionary<long, string> GetTreeList(List<(long id, long pid, string name)> groupList, long searchId = 0, int layer = 0)
-        {
-            var result = new Dictionary<long, string>();
-
-            var subItems = groupList.Where(t => t.pid == searchId).ToList();
-            if (subItems.Count == 0)
-                return result;
-
-            string space = "";
-            for (int i = 0; i < layer; i++)
-            {
-                space += "  ";
-            }
-
-            foreach (var (id, pid, name) in subItems)
-            {
-                result[id] = space + name;
-
-                var subs = GetTreeList(groupList, id, layer + 1);
-
-                foreach (var item in subs)
-                    result.Add(item.Key, item.Value);
-            }
-
-            return result;
+            await Svc_Group.LoadAsync();
         }
 
         public async Task Submit()
         {
             TheRecord.CreateTime = Svc_AlarmTime.CurrentTime;
             var row = await fsql.Insert(TheRecord).ExecuteAffrowsAsync();
-            logger.LogInformation("已插入：{row} 条数据", row);
+            //logger.LogInformation("已插入：{row} 条数据", row);
 
             Svc_AlarmTime.IsEnabled = true;
         }

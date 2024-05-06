@@ -41,7 +41,7 @@ namespace DailyClock.Views
 
         private void Group_TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            _viewModel.Selected = e.NewValue as RecordGroup;
+            _viewModel.SvcGroup.Selected = e.NewValue as RecordGroup;
         }
     }
 }

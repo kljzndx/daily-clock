@@ -27,13 +27,13 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TreeView x:Name="Group_TreeView" ItemsSource="{Binding Groups}" SelectedItemChanged="Group_TreeView_SelectedItemChanged">
+            <TreeView x:Name="Group_TreeView" ItemsSource="{Binding SvcGroup.Items}" SelectedItemChanged="Group_TreeView_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal" Margin="0,6">
                             <StackPanel.Resources>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="FontSize" Value="{StaticResource SubHeadFontSize}" />
+                                    <Setter Property="FontSize" Value="16" />
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="Margin" Value="4,0"/>
                                 </Style>
@@ -53,21 +53,21 @@
             </TreeView>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <Button Command="{Binding CreateGroupCommand}">添加子组</Button>
-                <TextBlock Text="{Binding Status}"/>
+                <Button Command="{Binding SvcGroup.CreateRootGroupCommand}">添加根组</Button>
+                <Button Command="{Binding SvcGroup.CreateSubGroupCommand}">添加子组</Button>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Column="1" Width="300">
             <StackPanel Margin="16,0">
                 <Label Content="ID: "/>
-                <TextBlock Text="{Binding Selected.Id}"/>
+                <TextBlock Text="{Binding SvcGroup.Selected.Id}"/>
                 <Label Content="名称: "/>
-                <TextBox Text="{Binding Selected.Name}"/>
+                <TextBox Text="{Binding SvcGroup.Selected.Name}"/>
                 <Label Content="图标: "/>
-                <TextBox Text="{Binding Selected.Icon}"/>
+                <TextBox Text="{Binding SvcGroup.Selected.Icon}"/>
                 <Label Content="父级ID: "/>
-                <TextBlock Text="{Binding Selected.ParentId}"/>
+                <TextBlock Text="{Binding SvcGroup.Selected.ParentId}"/>
             </StackPanel>
         </Grid>
     </Grid>
