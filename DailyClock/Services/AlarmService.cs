@@ -18,7 +18,7 @@ namespace DailyClock.Services
         private AudioService _svcAudio;
 
         [ObservableProperty]
-        private bool _isEnabled;
+        private bool? _isEnabled;
         [ObservableProperty]
         private bool _isHited;
         [ObservableProperty]
@@ -43,7 +43,7 @@ namespace DailyClock.Services
         {
             CurrentTime = e;
 
-            if (IsEnabled)
+            if (IsEnabled == true)
             {
                 if (CountdownSecond < 0)
                 {
@@ -58,6 +58,8 @@ namespace DailyClock.Services
                     new RecordWindow().Show();
                 }
             }
+            else if (IsEnabled == null)
+                HitTime = e.AddSeconds(CountdownSecond);
             else
             {
                 CountdownSecond = -1;

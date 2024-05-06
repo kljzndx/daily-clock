@@ -44,12 +44,12 @@ namespace DailyClock.ViewModels
         private void Compute()
         {
             string curTime = $"当前时间： {_svcAlarm.CurrentTime.ToZhString()}";
-            string enabled = $"定时记录器： {(_svcAlarm.IsEnabled ? "已开启" : "未开启")}";
+            string enabled = $"定时记录器： {(_svcAlarm.IsEnabled == true ? "已开启" : _svcAlarm.IsEnabled == null ? "已暂停" : "未开启")}";
             string hitTime = $"报警时间： {_svcAlarm.HitTime.ToZhString()}{Environment.NewLine}离报警还剩： {_svcAlarm.CountdownSecond}秒";
 
             Message = curTime + Environment.NewLine + enabled;
 
-            if (_svcAlarm.IsEnabled)
+            if (_svcAlarm.IsEnabled != false)
                 Message += Environment.NewLine + hitTime;
         }
     }
