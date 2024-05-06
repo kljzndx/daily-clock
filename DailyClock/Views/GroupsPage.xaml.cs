@@ -30,13 +30,6 @@ namespace DailyClock.Views
         public GroupsPage()
         {
             InitializeComponent();
-
-            this.Loaded += GroupsPage_Loaded;
-        }
-
-        private async void GroupsPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            await _viewModel.InitData();
         }
 
         private void Group_TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

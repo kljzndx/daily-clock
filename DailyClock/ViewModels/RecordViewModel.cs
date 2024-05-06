@@ -22,12 +22,6 @@ namespace DailyClock.ViewModels
         [ObservableProperty]
         private TimeRecord _theRecord = new();
 
-        public async Task Init()
-        {
-            Svc_AlarmTime.Init();
-            await Svc_Group.LoadAsync();
-        }
-
         public async Task Submit()
         {
             TheRecord.CreateTime = Svc_AlarmTime.CurrentTime;

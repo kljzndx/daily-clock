@@ -19,10 +19,5 @@ namespace DailyClock.ViewModels
     public partial class GroupsViewModel(RecordGroupService groupService) : ObservableRecipient
     {
         public RecordGroupService SvcGroup { get; } = groupService;
-
-        public async Task InitData()
-        {
-            await SvcGroup.LoadAsync();
-        }
     }
 }

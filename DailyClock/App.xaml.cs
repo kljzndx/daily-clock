@@ -29,7 +29,7 @@ namespace DailyClock
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
@@ -99,6 +99,9 @@ namespace DailyClock
             .BuildServiceProvider();
 
             Ioc.Default.ConfigureServices(series);
+
+            series.GetRequiredService<TimeService>().BeginTimer();
+            await series.GetRequiredService<RecordGroupService>().LoadAsync();
 
             ((TaskbarIcon)this.FindResource("AppTb")).ForceCreate();
         }

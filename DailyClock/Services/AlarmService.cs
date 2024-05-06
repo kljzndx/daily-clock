@@ -39,8 +39,6 @@ namespace DailyClock.Services
             _svcTime.Tick += SvcTime_Tick;
         }
 
-        public void Init() => _svcTime.BeginTimer();
-
         private void SvcTime_Tick(object? sender, DateTime e)
         {
             CurrentTime = e;
