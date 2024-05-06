@@ -11,6 +11,17 @@ namespace DailyClock.Services.Tables
 {
     public partial class RecordGroup : ObservableObject
     {
+        public RecordGroup()
+        {
+            
+        }
+
+        public RecordGroup(RecordGroup parent) : this()
+        {
+            _parent = parent;
+            _parentId = parent.Id;
+        }
+
         [ObservableProperty]
         private long _id;
         [ObservableProperty]
