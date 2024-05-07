@@ -18,7 +18,7 @@ namespace DailyClock.Services
         private AudioService _svcAudio;
 
         [ObservableProperty]
-        private bool? _isEnabled;
+        private bool? _isEnabled = false;
         [ObservableProperty]
         private bool _isHited;
         [ObservableProperty]
