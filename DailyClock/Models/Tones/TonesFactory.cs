@@ -28,8 +28,9 @@ namespace DailyClock.Models.Tones
 
             ISampleProvider result = CreateTone(new ToneProp(20, 0, 0.002, 0));
 
-            foreach (var item in group.Items)
-                result = result.FollowedBy(TimeSpan.FromSeconds(item.Delay_seconds), CreateTone(item));
+            for (int i = 0; i < group.LoopTimes; i++)
+                foreach (var item in group.Items)
+                    result = result.FollowedBy(TimeSpan.FromSeconds(item.Delay_seconds), CreateTone(item));
 
             return result;
         }
