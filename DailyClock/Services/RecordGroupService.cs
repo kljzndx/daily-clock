@@ -81,7 +81,7 @@ namespace DailyClock.Services
         [RelayCommand(CanExecute = nameof(CanCreateSubGroup))]
         private async Task CreateSubGroup()
         {
-            if (!CanCreateSubGroup)
+            if (!(Selected != null && Selected.ParentId == 0))
                 return;
 
             var ng = new RecordGroup(Selected);
@@ -89,6 +89,7 @@ namespace DailyClock.Services
             ng.Id = await _fsql.Insert(ng).ExecuteIdentityAsync();
 
             Selected.Children.Add(ng);
+
             int tid = (int)StrTree.First(o => o.Key == Selected.Id).Key + Selected.Children.Count;
             StrTree.Insert(tid, new(ng.Id, "  " + ng.Name));
         }
