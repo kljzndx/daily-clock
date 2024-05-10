@@ -59,13 +59,13 @@ namespace DailyClock.ViewModels
         [RelayCommand(CanExecute = nameof(CanReadProp))]
         private void PlayTone()
         {
-            _audioService.Play(SelectedProp!);
+            _audioService.Play(fa => fa.CreateTone(SelectedProp!));
         }
 
         [RelayCommand(CanExecute = nameof(CanReadGroup))]
         private void PlayGroup()
         {
-            _audioService.Play(SelectedGroup!);
+            _audioService.Play(fa => fa.CreateTone(SelectedGroup!));
         }
 
         [RelayCommand]

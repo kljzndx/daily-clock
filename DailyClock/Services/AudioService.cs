@@ -14,28 +14,15 @@ namespace DailyClock.Services
     {
         private DirectSoundOut? _dso;
 
-        public void Play(TonesGroup source)
+        public async Task Play(Func<TonesFactory, Task<ISampleProvider>> fact) => Play(await fact(tonesFactory));
+        public void Play(Func<TonesFactory, ISampleProvider> fact) => Play(fact(tonesFactory));
+        private void Play(ISampleProvider source)
         {
             if (_dso != null)
                 _dso.Stop();
 
-            var isp = tonesFactory.CreateTone(source);
-
             _dso = new();
-            _dso.Init(isp);
-            _dso.Play();
-            _dso.PlaybackStopped += Dso_PlaybackStopped;
-        }
-
-        public void Play(ToneProp source)
-        {
-            if (_dso != null)
-                _dso.Stop();
-
-            var isp = tonesFactory.CreateTone(source);
-
-            _dso = new();
-            _dso.Init(isp);
+            _dso.Init(source);
             _dso.Play();
             _dso.PlaybackStopped += Dso_PlaybackStopped;
         }

@@ -73,7 +73,7 @@ namespace DailyClock.Services
             IsHited = true;
             IsEnabled = false;
 
-            _svcAudio.Play(_svcSettings.TonesGroups[0]);
+            _svcAudio.Play(fa => fa.CreateTone(_svcSettings.TonesGroups[0]));
             HitStarted?.Invoke(this, HitTime);
         }
     }
