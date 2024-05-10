@@ -14,7 +14,7 @@ namespace DailyClock.Models.Tones
         [ObservableProperty]
         private string _name = "";
         [ObservableProperty]
-        private int _loopTimes = 0;
+        private int _loopTimes = 1;
         [ObservableProperty]
         private ObservableCollection<ToneProp> _items = [];
     }
