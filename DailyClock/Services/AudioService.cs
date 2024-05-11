@@ -19,7 +19,7 @@ namespace DailyClock.Services
         private void Play(ISampleProvider source)
         {
             if (_dso != null)
-                _dso.Stop();
+                Stop();
 
             _dso = new();
             _dso.Init(source);
@@ -39,6 +39,7 @@ namespace DailyClock.Services
 
             obj.PlaybackStopped -= Dso_PlaybackStopped;
             obj.Dispose();
+            _dso = null;
         }
     }
 }
