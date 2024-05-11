@@ -13,10 +13,10 @@ using System.Threading.Tasks;
 
 namespace DailyClock.ViewModels
 {
-    public partial class RecordViewModel(IFreeSql fsql, AppSettings appSettings, RecordGroupService groupService, AlarmService alarmTimeService) : ObservableRecipient
+    public partial class RecordViewModel(IFreeSql fsql, AppSettings appSettings, RecordGroupService groupService, RecordTimerService alarmTimeService) : ObservableRecipient
     {
         public AppSettings Svc_Settings { get; } = appSettings;
-        public AlarmService Svc_AlarmTime { get; } = alarmTimeService;
+        public RecordTimerService Svc_AlarmTime { get; } = alarmTimeService;
         public RecordGroupService Svc_Group { get; } = groupService;
 
         [ObservableProperty]

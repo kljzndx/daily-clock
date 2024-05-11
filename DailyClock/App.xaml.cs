@@ -86,7 +86,7 @@ namespace DailyClock
             .AddSingleton<TimeService>()
             .AddSingleton<TonesFactory>()
             .AddSingleton<AudioService>()
-            .AddSingleton<AlarmService>()
+            .AddSingleton<RecordTimerService>()
 
             .AddSingleton<TaskbarIconViewModel>()
 

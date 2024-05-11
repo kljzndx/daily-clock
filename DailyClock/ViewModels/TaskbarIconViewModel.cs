@@ -16,12 +16,12 @@ namespace DailyClock.ViewModels
     public partial class TaskbarIconViewModel : ObservableRecipient
     {
         private TimeService _svcTime;
-        private AlarmService _svcAlarm;
+        private RecordTimerService _svcAlarm;
 
         [ObservableProperty]
         private string _message = "服务初始化中...";
 
-        public TaskbarIconViewModel(TimeService timeService, AlarmService alarmService)
+        public TaskbarIconViewModel(TimeService timeService, RecordTimerService alarmService)
         {
             _svcTime = timeService;
             _svcAlarm = alarmService;

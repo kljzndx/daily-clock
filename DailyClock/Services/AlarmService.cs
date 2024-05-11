@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DailyClock.Services
 {
-    public partial class AlarmService : ObservableObject
+    public partial class RecordTimerService : ObservableObject
     {
         private const string LOG_HEAD = "[定时记录器]";
 
@@ -35,7 +35,7 @@ namespace DailyClock.Services
 
         public event EventHandler<DateTime>? HitStarted;
 
-        public AlarmService(ILogger logger, AppSettings appSettings, TimeService timeService, AudioService audioService)
+        public RecordTimerService(ILogger logger, AppSettings appSettings, TimeService timeService, AudioService audioService)
         {
             _svcLogger = logger;
             _svcSettings = appSettings;
