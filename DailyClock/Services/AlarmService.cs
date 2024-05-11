@@ -67,7 +67,7 @@ namespace DailyClock.Services
             }
         }
 
-        public void HitClock()
+        private void HitClock()
         {
             CountdownSecond = -1;
             IsHited = true;
