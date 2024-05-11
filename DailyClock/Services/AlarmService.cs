@@ -3,6 +3,8 @@
 using DailyClock.Models;
 using DailyClock.Views;
 
+using Serilog;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,9 @@ namespace DailyClock.Services
 {
     public partial class AlarmService : ObservableObject
     {
+        private const string LOG_HEAD = "[定时记录器]";
+
+        private ILogger _svcLogger;
         private AppSettings _svcSettings;
         private TimeService _svcTime;
         private AudioService _svcAudio;
@@ -30,13 +35,20 @@ namespace DailyClock.Services
 
         public event EventHandler<DateTime>? HitStarted;
 
-        public AlarmService(AppSettings appSettings, TimeService timeService, AudioService audioService)
+        public AlarmService(ILogger logger, AppSettings appSettings, TimeService timeService, AudioService audioService)
         {
+            _svcLogger = logger;
             _svcSettings = appSettings;
             _svcTime = timeService;
             _svcAudio = audioService;
 
             _svcTime.Tick += SvcTime_Tick;
+        }
+
+        partial void OnIsEnabledChanged(bool? value)
+        {
+            string status = value == true ? "已开启" : value == null ? "已暂停" : "已停止";
+            _svcLogger.Information("定时器状态： {stu}", status);
         }
 
         private void SvcTime_Tick(object? sender, DateTime e)
@@ -47,13 +59,18 @@ namespace DailyClock.Services
             {
                 if (CountdownSecond < 0)
                 {
+                    _svcLogger.Information("{head}  初始化定时器", LOG_HEAD);
                     IsHited = false;
                     CountdownSecond = 60 * _svcSettings.HitClockInterval;
                 }
                 else if (CountdownSecond > 0)
+                {
                     CountdownSecond--;
+                    _svcLogger.Information("{head}  当前计数： {cd}", LOG_HEAD, CountdownSecond);
+                }
                 else
                 {
+                    _svcLogger.Information("{head}  时间已到，开始弹窗", LOG_HEAD);
                     HitClock();
                     new RecordWindow().Show();
                 }
