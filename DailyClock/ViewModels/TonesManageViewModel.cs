@@ -68,6 +68,16 @@ namespace DailyClock.ViewModels
             _audioService.Play(fa => fa.CreateTone(SelectedGroup!));
         }
 
+        [RelayCommand(CanExecute = nameof(CanReadGroup))]
+        private void LoopPlayGroup()
+        {
+            _audioService.Play(fa => fa.CreateTone(SelectedGroup!));
+            _audioService.IsLoop = true;
+        }
+
+        [RelayCommand]
+        private void Stop() => _audioService.Stop();
+
         [RelayCommand]
         private void CreateGroup()
         {

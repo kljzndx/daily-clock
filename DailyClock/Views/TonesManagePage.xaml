@@ -101,6 +101,8 @@
 
             <Button Command="{Binding PlayToneCommand}">播放音调</Button>
             <Button Command="{Binding PlayGroupCommand}">播放铃声</Button>
+            <Button Command="{Binding LoopPlayGroupCommand}">循环播放铃声</Button>
+            <Button Command="{Binding StopCommand}">停止播放</Button>
         </StackPanel>
     </Grid>
 </UserControl>
