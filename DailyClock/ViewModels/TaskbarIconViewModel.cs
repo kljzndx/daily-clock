@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 using DailyClock.Services;
@@ -17,14 +18,16 @@ namespace DailyClock.ViewModels
     {
         private TimeService _svcTime;
         private RecordTimerService _svcAlarm;
+        private WindowService _svcWindow;
 
         [ObservableProperty]
         private string _message = "服务初始化中...";
 
-        public TaskbarIconViewModel(TimeService timeService, RecordTimerService alarmService)
+        public TaskbarIconViewModel(TimeService timeService, RecordTimerService alarmService, WindowService windowService)
         {
             _svcTime = timeService;
             _svcAlarm = alarmService;
+            _svcWindow = windowService;
             
             _svcTime.Tick += (s, e) => Compute();
         }
@@ -32,7 +35,7 @@ namespace DailyClock.ViewModels
         [RelayCommand]
         private void ShowRecWindow()
         {
-            new RecordWindow().Show();
+            _svcWindow.ShowRecord();
         }
 
         [RelayCommand]

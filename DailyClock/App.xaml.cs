@@ -96,6 +96,8 @@ namespace DailyClock
 
             .AddSingleton<MainViewModel>()
             .AddSingleton<RecordViewModel>()
+
+            .AddSingleton<WindowService>()
             .BuildServiceProvider();
 
             Ioc.Default.ConfigureServices(series);
@@ -104,6 +106,8 @@ namespace DailyClock
             await series.GetRequiredService<RecordGroupService>().LoadAsync();
 
             ((TaskbarIcon)this.FindResource("AppTb")).ForceCreate();
+
+            series.GetRequiredService<WindowService>().ShowRecord();
         }
 
         private AppSettings GetConfig(ILogger logger)

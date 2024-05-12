@@ -13,8 +13,10 @@ using System.Threading.Tasks;
 
 namespace DailyClock.ViewModels
 {
-    public partial class RecordViewModel(IFreeSql fsql, AppSettings appSettings, RecordGroupService groupService, RecordTimerService alarmTimeService) : ObservableRecipient
+    public partial class RecordViewModel(IFreeSql fsql, AppSettings appSettings, RecordGroupService groupService, RecordTimerService alarmTimeService, WindowService windowService) : ObservableRecipient
     {
+        private WindowService _svcWindow { get; } = windowService;
+
         public AppSettings Svc_Settings { get; } = appSettings;
         public RecordTimerService Svc_AlarmTime { get; } = alarmTimeService;
         public RecordGroupService Svc_Group { get; } = groupService;
@@ -29,6 +31,9 @@ namespace DailyClock.ViewModels
             //logger.LogInformation("已插入：{row} 条数据", row);
 
             Svc_AlarmTime.IsEnabled = true;
+            CloseWindow();
         }
+
+        public void CloseWindow() => _svcWindow.CloseRecord();
     }
 }

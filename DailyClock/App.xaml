@@ -4,7 +4,6 @@
              xmlns:vm="clr-namespace:DailyClock.ViewModels"
              xmlns:cvt="clr-namespace:DailyClock.ViewModels.ValueConverters"
              xmlns:tb="clr-namespace:H.NotifyIcon;assembly=H.NotifyIcon.Wpf"
-             StartupUri="Views/RecordWindow.xaml"
              ShutdownMode="OnExplicitShutdown">
     
     <Application.Resources>

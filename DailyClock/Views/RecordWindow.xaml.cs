@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 
+using DailyClock.Services;
 using DailyClock.ViewModels;
 
 using System;
@@ -38,12 +39,12 @@ namespace DailyClock.Views
         private async void Submit_Button_Click(object sender, RoutedEventArgs e)
         {
             await _viewModel.Submit();
-            this.Close();
+            _viewModel.CloseWindow();
         }
 
         private void Close_CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            this.Close();
+            _viewModel.CloseWindow();
         }
     }
 }
