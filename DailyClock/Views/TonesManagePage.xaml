@@ -86,6 +86,10 @@
         <StackPanel Grid.Column="1" Width="200">
             <Label>铃声名称：</Label>
             <TextBox Text="{Binding SelectedGroup.Name}"/>
+            <Label>重复次数：</Label>
+            <TextBox Text="{Binding SelectedGroup.LoopTimes}"/>
+            <Rectangle Width="5" Height="20" Fill="Transparent"/>
+            
             <Label>频率：</Label>
             <TextBox Text="{Binding SelectedProp.Freq}"/>
             <Label>增益（音量）：</Label>
