@@ -22,7 +22,9 @@
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>
             </tb:TaskbarIcon>
+            
             <cvt:DateTimeToStringConverter x:Key="DateTimeToString"/>
+            <cvt:BoolToVisibilityCoverter x:Key="BoolToVisibility"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

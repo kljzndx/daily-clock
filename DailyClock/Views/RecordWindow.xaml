@@ -71,7 +71,16 @@
             <Label>详细信息</Label>
             <TextBox  Text="{Binding TheRecord.Information}"/>
 
-            <Button Click="Submit_Button_Click">提交</Button>
+            <Button Click="Submit_Button_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>提交</TextBlock>
+                    <TextBlock Visibility="{Binding IsEnableCloseTimer, Converter={StaticResource BoolToVisibility}}">
+                        <Run Text="("/>
+                        <Run Text="{Binding CloseSecond, Mode=OneWay}"/>
+                        <Run Text=")"/>
+                    </TextBlock>
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>
