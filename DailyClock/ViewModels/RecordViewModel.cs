@@ -50,6 +50,7 @@ namespace DailyClock.ViewModels
             TheRecord.PropertyChanged += TheRecord_PropertyChanged;
         }
 
+        [RelayCommand]
         public async Task Submit()
         {
             TheRecord.CreateTime = Svc_AlarmTime.CurrentTime;

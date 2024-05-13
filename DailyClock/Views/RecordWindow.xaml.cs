@@ -36,12 +36,6 @@ namespace DailyClock.Views
             new MainWindow().Show();
         }
 
-        private async void Submit_Button_Click(object sender, RoutedEventArgs e)
-        {
-            await _viewModel.Submit();
-            _viewModel.CloseWindow();
-        }
-
         private void Close_CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _viewModel.CloseWindow();
