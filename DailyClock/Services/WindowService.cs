@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 
+using DailyClock.Models.Base;
 using DailyClock.Views;
 
 using System;
@@ -12,11 +12,14 @@ using System.Threading.Tasks;
 
 namespace DailyClock.Services
 {
-    public class WindowService : ObservableObject
+    public class WindowService : BaseObservableObject
     {
         private RecordWindow? _wdRecord;
 
         public bool IsEnabledRecord { get; private set; }
+
+        public event EventHandler? RecordOpened;
+        public event EventHandler? RecordClosed;
 
         public void ShowRecord()
         {
@@ -27,6 +30,7 @@ namespace DailyClock.Services
             _wdRecord.Show();
 
             SetStateProperty(nameof(IsEnabledRecord), true);
+            RecordOpened?.Invoke(this, EventArgs.Empty);
         }
 
         public void CloseRecord()
@@ -38,13 +42,7 @@ namespace DailyClock.Services
             _wdRecord = null;
 
             SetStateProperty(nameof(IsEnabledRecord), false);
-        }
-
-        private void SetStateProperty(string propName, object value)
-        {
-            OnPropertyChanging(propName);
-            this.GetType().GetProperty(propName)?.SetValue(this, value);
-            OnPropertyChanged(propName);
+            RecordClosed?.Invoke(this, EventArgs.Empty);
         }
     }
 }
