@@ -67,9 +67,9 @@
                 <Button Grid.Column="1" Click="ManageGroup_Button_Click">管理</Button>
             </Grid>
             <Label>名称</Label>
-            <TextBox Text="{Binding TheRecord.Name}" />
+            <TextBox Text="{Binding TheRecord.Name, UpdateSourceTrigger=PropertyChanged}" />
             <Label>详细信息</Label>
-            <TextBox  Text="{Binding TheRecord.Information}"/>
+            <TextBox  Text="{Binding TheRecord.Information, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Button Click="Submit_Button_Click">
                 <StackPanel Orientation="Horizontal">
