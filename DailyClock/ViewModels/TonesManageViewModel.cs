@@ -21,6 +21,7 @@ namespace DailyClock.ViewModels
         private AudioService _audioService => audioService;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(LoopPlayGroupCommand))]
         [NotifyCanExecuteChangedFor(nameof(PlayGroupCommand))]
         [NotifyCanExecuteChangedFor(nameof(PlayToneCommand))]
 
