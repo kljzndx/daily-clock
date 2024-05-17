@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-
+using DailyClock.Models.Base;
 using DailyClock.Models.Tones;
 
 using NAudio.Wave;
@@ -12,13 +12,15 @@ using System.Threading.Tasks;
 
 namespace DailyClock.Services
 {
-    public partial class AudioService(TonesFactory tonesFactory) : ObservableObject
+    public partial class AudioService(TonesFactory tonesFactory) : BaseObservableObject
     {
         private DirectSoundOut? _dso;
         private Func<TonesFactory, ISampleProvider>? lastFact;
 
         [ObservableProperty]
         private bool _isLoop;
+
+        public bool IsPlaying { get; private set; }
 
         public void Play(Func<TonesFactory, ISampleProvider> fact)
         {
@@ -30,6 +32,8 @@ namespace DailyClock.Services
         {
             if (_dso != null)
                 Stop();
+
+            SetStateProperty(nameof(IsPlaying), true);
 
             _dso = new();
             _dso.Init(source);
@@ -54,6 +58,8 @@ namespace DailyClock.Services
 
             if (lastFact != null && IsLoop)
                 Play(lastFact);
+            else
+                SetStateProperty(nameof(IsPlaying), false);
         }
     }
 }
