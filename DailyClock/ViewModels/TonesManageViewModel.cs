@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 
 using DailyClock.Models;
+using DailyClock.Models.Base;
 using DailyClock.Models.Tones;
 using DailyClock.Services;
 
@@ -15,10 +16,24 @@ using System.Threading.Tasks;
 
 namespace DailyClock.ViewModels
 {
-    public partial class TonesManageViewModel(AudioService audioService, AppSettings settings) : ObservableRecipient
+    public partial class TonesManageViewModel : BaseObservableRecipient
     {
-        public AppSettings Settings => settings;
-        private AudioService _audioService => audioService;
+        public AppSettings Settings { get; }
+        private readonly AudioService _audioService;
+
+        public TonesManageViewModel(AudioService audioService, AppSettings settings)
+        {
+            Settings = settings;
+            _audioService = audioService;
+
+            WatchSubObject(this, _audioService, nameof(AudioService.IsPlaying), (p, s) =>
+            {
+                p.StopCommand.NotifyCanExecuteChanged();
+                p.PlayGroupCommand.NotifyCanExecuteChanged();
+                p.PlayToneCommand.NotifyCanExecuteChanged();
+                p.LoopPlayGroupCommand.NotifyCanExecuteChanged();
+            });
+        }
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(LoopPlayGroupCommand))]
@@ -56,27 +71,30 @@ namespace DailyClock.ViewModels
         private bool CanReadProp => SelectedProp != null && CanReadGroup;
         private bool CanRemoveGroup => CanReadGroup && Settings.TonesGroups.Count > 1;
         private bool CanRemoveProp => CanReadProp && SelectedGroup!.Items.Count > 1;
+        private bool CanStop => _audioService.IsPlaying;
+        private bool CanPlayGroup => !CanStop && CanReadGroup && SelectedGroup!.Items.Count > 0;
+        private bool CanPlayProp => !CanStop && CanReadProp;
 
-        [RelayCommand(CanExecute = nameof(CanReadProp))]
+        [RelayCommand(CanExecute = nameof(CanPlayProp))]
         private void PlayTone()
         {
             _audioService.Play(fa => fa.CreateTone(SelectedProp!));
         }
 
-        [RelayCommand(CanExecute = nameof(CanReadGroup))]
+        [RelayCommand(CanExecute = nameof(CanPlayGroup))]
         private void PlayGroup()
         {
             _audioService.Play(fa => fa.CreateTone(SelectedGroup!));
         }
 
-        [RelayCommand(CanExecute = nameof(CanReadGroup))]
+        [RelayCommand(CanExecute = nameof(CanPlayGroup))]
         private void LoopPlayGroup()
         {
             _audioService.Play(fa => fa.CreateTone(SelectedGroup!));
             _audioService.IsLoop = true;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanStop))]
         private void Stop() => _audioService.Stop();
 
         [RelayCommand]
